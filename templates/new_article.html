@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block head-js %}
+    <script src="/static/plugins/ckeditor/ckeditor.js"></script>
+{% endblock %}
+
+{% block page-container %}
+    <div class="new_article">
+        <!--{#    这里必须加上enctype才能传多媒体文件#}-->
+        {% if new_article_obj %}
+            <h3>文章{{ new_article_obj.title }}已发布,<a href="{% url 'article_detail' new_article_obj.id %}">点我查看</a></h3>
+        {% else %}
+            <form enctype="multipart/form-data" method="post" action="new_article.html">{% csrf_token %}
+                <input name="title" type="text" class="form-control" placeholder="文章标题">
+
+                <select name="category_id" class="form-control">
+                  {% for category in category_list %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                  {% endfor %}
+                </select>
+
+                <input name="summary" type="text" class="form-control" placeholder="文章简介">
+
+                <input type="file" name="head_img">必选文章标题图片
+
+                <textarea id="ck-editor" name="content" class="form-control" rows="3"></textarea>
+                <br/>
+                <button type="submit" class="btn btn-success pull-right">发帖</button>
+            </form>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block bottom-js %}
+    <script>
+        CKEDITOR.replace('ck-editor');
+
+        CKEDITOR.editorConfig = function (config) {
+            //config.language = 'es'
+            config.uiColor = 'blue';
+            config.height = 800;
+            config.toolbarCanCollapse = true;
+        };
+    </script>
+    {% endblock %}

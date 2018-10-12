@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+{% load custom_tags %}
+
+{% block page-container %}
+    <div class="article-detail">
+        <h2>{{ article_obj.title }}</h2>
+        <h3>{{ article_obj.content|safe }}</h3>
+
+        <hr style="height: 1px;background-color: red"/>
+
+        <div class="pl-mark-wrap">
+            <span class="pl-yh-span-mark active" id="comment-pl-position">说点什么</span>
+        </div>
+        {% if request.user.is_authenticated %}
+            <div class="author-info">
+                <div class="author-face pl-yh-article-publish">
+                    <img src="">
+                </div>
+                <span class="author-name pl-yh-article-publish">{{ request.user.userprofile.name }}</span>
+                <form class="comment-form" id="jsStayForm">{% csrf_token %}
+                    <input name="article_id" type="hidden" id="js-name" value="{{ article_obj.id }}">
+                    <textarea class="form-control  js-comment-yh-form-control" id="id_comment" name="comment" placeholder="客官，2个字起评，不讲价哟"></textarea>
+                    <button class="btn" id="jsStayBtn">发表</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="no-login-box ">
+            <a href="{% url 'login' %}">登录</a>后参与评论
+        </div>
+        {% endif %}
+
+
+
+
+        {% build_comment_tree article_obj.comment_set.select_related%}
+
+
+    </div>
+{% endblock %}
