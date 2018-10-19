@@ -10,8 +10,6 @@ class ArticleForm(forms.Form):
     content = forms.CharField(min_length=10)
 
 def handle_uploaded_file(request, f):
-    print(f.name)
-    #这里多加了个邪杠。搞了3个小时
     base_img_upload_path = 'statics/imgs'
     user_path = '%s/%s' %(base_img_upload_path, request.user.userprofile.id)
 
