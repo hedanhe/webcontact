@@ -16,7 +16,7 @@ class Chat(object):
             #没有消息，等60秒
             try:
                 print("没有新消息，等60秒```")
-                new_msgs.append(self.msg_queue.get(timeout=60))
+                new_msgs.append(self.msg_queue.get(timeout=6))
             except queue.Empty:
                 print("没有消息")
 
