@@ -14,7 +14,7 @@
         {% if request.user.is_authenticated %}
             <div class="author-info">
                 <div class="author-face pl-yh-article-publish">
-                    <img src="">
+                    <img src="{{ article_obj.head_img }}">
                 </div>
                 <span class="author-name pl-yh-article-publish">{{ request.user.userprofile.name }}</span>
                 <form class="comment-form" id="jsStayForm">{% csrf_token %}
