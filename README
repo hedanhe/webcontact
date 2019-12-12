@@ -1,0 +1,10 @@
+1.安装mysql
+  mysql建表s11bbs
+2.安装python3
+  pip3 install django
+  pip3 insatll requests
+  pip3 install pillow
+3.python3 manage.py makemigrations
+  python3 manage.py migrate
+  
+  python3 manage.py runserver 0.0.0.0:8000
